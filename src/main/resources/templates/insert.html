@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>クレジットカードWebAPIサンプル</title>
+<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" >
+<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" >
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div class="container">
+		<!-- login form -->
+		<div class="row">
+			<div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
+				<!-- 背景をグレーに、埋め込んだようなコンポーネント -->
+				<div class="well">
+
+<!-- ここから上を編集する必要はありません -->
+
+<!-- ここにモックのform要素を貼り付けます -->
+
+					<form method="post" th:action="@{/payment}" th:object="${creditCardPaymentForm}">
+						<input type="hidden" name="user_id" value="9999">
+						<input type="hidden" name="order_number" value="11111111111111">
+						<fieldset>
+							<legend>クレジットカード決済</legend>
+							<div class="form-group">
+								<label for="amount">決済金額:</label>
+								<input type="text" name="amount" id="amount" class="form-control" placeholder="amount" th:field="*{amount}">
+							</div>
+							<div class="form-group">
+								<label>お支払方法:</label><br>
+					            <div class="radio-inline" th:each="item : ${paymentMethodMap}">
+					              <label>
+					                <input type="radio" name="paymentMethod" th:value="${item.key}" th:text="${item.value}" th:field="*{paymentMethod}">
+					              </label>
+					            </div>
+							</div>
+							<div class="form-group">
+								<label for="card_number">カード番号:</label>
+								<input type="text" name="card_number" id="card_number" class="form-control" placeholder="Card number" th:field="*{card_number}">
+							</div>
+							<div class="form-group">
+								<label for="card_exp_month">カード有効期限(月):</label>
+								<input type="text" name="card_exp_month" id="card_exp_month" class="form-control" placeholder="Expiration date (Month)" th:field="*{card_exp_month}">
+							</div>
+							<div class="form-group">
+								<label for="card_exp_year">カード有効期限(年):</label>
+								<input type="text" name="card_exp_year" id="card_exp_year" class="form-control" placeholder="Expiration date (Year)" th:field="*{card_exp_year}">
+							</div>
+							<div class="form-group">
+								<label for="card_cvv">セキュリティコード:</label>
+								<input type="text" name="card_cvv" id="card_cvv" class="form-control" placeholder="Security code" th:field="*{card_cvv}">
+							</div>
+							<div class="form-group">
+								<label for="card_name">カード名義人:</label>
+								<input type="text" name="card_name" id="card_name" class="form-control" placeholder="Card holder" th:field="*{card_name}">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">決済する</button>
+								<button type="button" class="btn btn-primary" onclick="location.href='/toCancel'">キャンセル画面へ</button>
+							</div>
+						</fieldset>
+					</form>
+
+<!-- ここから下を編集する必要はありません -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end container -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>
